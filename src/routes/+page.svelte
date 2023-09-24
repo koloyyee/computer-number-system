@@ -1,6 +1,7 @@
 <script lang="ts">
-	import Steps from '$lib/components/conversion/Steps.svelte';
-	import { toDecimal } from './conversion';
+	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
+	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
+	import { fromDecimal, toDecimal } from './conversion';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
 	let selectedTo: { name: string; base: number } = { name: '', base: 0 };
@@ -18,8 +19,14 @@
 	];
 
 	function convert() {
-		result = toDecimal(from, selectedFrom.base);
-		to = result.answer;
+		if (selectedTo.base === 10) {
+			result = toDecimal(from, selectedFrom.base);
+			to = result.answer;
+		} else if (selectedFrom.base === 10) {
+			console.log(selectedFrom.base, 'base');
+			result = fromDecimal(from, selectedTo.base);
+			to = result.answer;
+		}
 	}
 </script>
 
@@ -59,11 +66,15 @@
 <section id="steps">
 	{#if result}
 		{#each result.steps as step, index}
-			<Steps {step} base={selectedFrom.base} />
-			{#if index !== result.steps.length - 1}
-				<p>+</p>
-			{:else}
-				<p>= {result.answer}</p>
+			{#if selectedTo.base === 10}
+				<ToDecimalSteps {step} base={selectedFrom.base} />
+				{#if index !== result.steps.length - 1}
+					<p>+</p>
+				{:else}
+					<p>= {result.answer}</p>
+				{/if}
+			{:else if selectedFrom.base === 10}
+				<FromDecimalSteps {step} base={selectedTo.base} />
 			{/if}
 		{/each}
 	{/if}

@@ -1,74 +1,71 @@
+import type { IStep, ISteps } from "$lib/types/conversion.types";
 
-	const hexChars = ['A', 'B', 'C', 'D', 'E', 'F'];
-	function handleChar(hexChar: string) {
-		switch (hexChar) {
-			case 'A':
-				return 10;
-			case 'B':
-				return 11;
-			case 'C':
-				return 12;
-			case 'D':
-				return 13;
-			case 'E':
-				return 14;
-			case 'F':
-				return 15;
-			default:
-				return 0; 
+const hexMap = new Map();
+hexMap.set("A", 10);
+hexMap.set("B", 11);
+hexMap.set("C", 12);
+hexMap.set("D", 13);
+hexMap.set("E", 14);
+hexMap.set("F", 15);
+
+function getByValue(target: number) {
+	for (const [key, value] of hexMap.entries()) {
+		if (value === target) {
+			return key;
 		}
 	}
-function nonDToD( input : string, from: int): string{
 
-	if ( from === 10) return input;
-
-	if(from === 2) {
-		// binary to decimal 
-	
-		return 1;
-	}
-	if (from === 8) {
-		// octal to decimal 
-		return 1;
-	}
-	
-	
-	if (from === 16) {
-		// hexadecimal to decimal 
-		return 1;
-	}
-	
 }
 
 export function toDecimal(input: string, base: number): {
-		answer: number;
-		steps: [{ power: string; value: number }];
-	} {
-		const answer = parseInt(input, base);
-		if (isNaN(answer)) return input;
+	answer: number;
+	steps: [{ power: string; value: number }];
+} | string {
+	const answer = parseInt(input, base);
+	if (isNaN(answer)) return { answer: input, steps: [] };
 
-		const reversedBinArr = input.split('').reverse();
-		let steps = [];
+	const reversedBinArr = input.split('').reverse();
+	let steps: ISteps = [];
 
-		reversedBinArr.forEach((el, index) => {
+	reversedBinArr.forEach((el, index) => {
 
-			const element = hexChars.includes(el)	? handleChar(el) : parseInt(el)
-			console.log({element});
-			const step = {};
-			step.power = index;
-			step.value = element * Math.pow(base, index);
-			step.element = el;
-			steps.push(step);
-		});
+		const element = hexMap.has(el) ? hexMap.get(el) : parseInt(el)
+		const step: IStep = { power: 0, value: 0, element: "" };
+		step.power = index;
+		step.value = element * Math.pow(base, index);
+		step.element = el;
+		steps.push(step);
+	});
 
-		return {
-			answer,
-			steps
-		};
+	return {
+		answer,
+		steps
+	};
+}
+
+
+export function fromDecimal(input: string, base: number) {
+	let decimalNum = parseInt(input);
+	const answer = decimalNum.toString(base).toUpperCase();
+
+	let steps = [];
+	while (true) {
+		if (decimalNum === 0 || isNaN(decimalNum)) break;
+		const step = {};
+		const reminder = decimalNum % base;
+		step.prev = decimalNum;
+		step.reminder = (base === 16 && reminder >= 10) ?
+			getByValue(reminder) : reminder;
+		decimalNum = Math.floor(decimalNum / base);
+		step.whole = decimalNum;
+		console.log(step.reminder);
+		steps.push(step);
+
 	}
-export function nonBinToDecimal(input: string, base: int) {
-	
-	const answer = parseInt(intput, base);
-	if(isNaN(answer)) return input;
+	console.log({ steps });
 
+	return {
+		answer,
+		steps
+	}
 }
