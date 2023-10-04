@@ -1,38 +1,11 @@
-# create-svelte
+# Computer Number System
+Our world works in base 10, that means 10 is the max and 0 is the lowest,
+however, the our computer see differently, because it only sees 0s and 1s, as a softare developer learn the how to convert from one number system to another is crucial.
+PLUS! if you go to any traditional wet market in Hong Kong, Taiwan or China you might always need to know how to convert catty(base 16) to metric (base 10)!
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Goal
+The goal is to convert the number from one base to another, but I would to show the steps, not just the answer, and that's whole point, but why you might ask.
+Because learning is not about knowing the answer to but understand the steps to get to the answer, so next time when we are facing the same problem we know exactly what to do.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## How to start?
+To be continue....
