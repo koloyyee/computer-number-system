@@ -83,7 +83,7 @@
 			{:else if selectedFrom.base === 10}
 				<FromDecimalSteps {step} base={selectedTo.base} />
 			{:else if selectedFrom.base === 2}
-				<FromBinarySteps {step} base={selectedTo.base} />
+				<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
 			{/if}
 		{/each}
 	{/if}

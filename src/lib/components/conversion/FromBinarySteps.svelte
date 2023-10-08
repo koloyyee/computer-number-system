@@ -2,7 +2,7 @@
 	export let step: string[][];
 	export let base;
 
-	console.log(step);
+	export let result: string;
 </script>
 
 <p class="py-8">{step}</p>
@@ -14,4 +14,5 @@
 	{:else}
 		+ 1 x {binary}
 	{/if}
+	= {result}
 {/each}

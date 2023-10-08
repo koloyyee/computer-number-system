@@ -75,9 +75,7 @@ export function fromBin(input: string, base: number = 8): { answer: string, step
 			return { answer: input, steps: [] }
 		}
 	})
-	console.log(input.split(""))
 	const splittedInput = input.split("").reverse();
-	console.log({ splittedInput })
 	const chunkSize: number = base === 8 ? 3 : 4;
 	const steps: string[][] = [];
 
@@ -85,7 +83,6 @@ export function fromBin(input: string, base: number = 8): { answer: string, step
 		const chunk = splittedInput.slice(i, i + chunkSize);
 		steps.push(chunk);
 	}
-	console.log({ steps })
 	steps.reverse().forEach((chunk, index) => {
 		chunk.reverse()
 		if (chunk.length < chunkSize && index === 0) {
@@ -99,11 +96,9 @@ export function fromBin(input: string, base: number = 8): { answer: string, step
 		}
 	});
 
-	console.log({ steps })
-
 	let answer = parseInt(input, 2).toString(base).toUpperCase();
-
 	answer = answer === "NAN" ? "" : answer
+
 	return {
 		answer,
 		steps
