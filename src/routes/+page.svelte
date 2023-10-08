@@ -3,6 +3,7 @@
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
 	import { fromBin, fromDecimal, toDecimal } from '../lib/utils/conversion';
+	import '../app.css';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
 	$: selectedTo = { name: '', base: 0 };
