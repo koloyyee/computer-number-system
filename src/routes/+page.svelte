@@ -1,13 +1,14 @@
 <script lang="ts">
+	import FromBinarySteps from '$lib/components/conversion/FromBinarySteps.svelte';
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
-	import { fromDecimal, toDecimal } from './conversion';
+	import { fromBin, fromDecimal, toDecimal } from '../lib/utils/conversion';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
-	let selectedTo: { name: string; base: number } = { name: '', base: 0 };
+	$: selectedTo = { name: '', base: 0 };
 
-	let from: string = '';
-	let to: number | string = '';
+	let from = '';
+	let to = '';
 
 	let result;
 
@@ -23,10 +24,16 @@
 			result = toDecimal(from, selectedFrom.base);
 			to = result.answer;
 		} else if (selectedFrom.base === 10) {
-			console.log(selectedFrom.base, 'base');
 			result = fromDecimal(from, selectedTo.base);
 			to = result.answer;
+		} else if (selectedFrom.base === 2) {
+			result = fromBin(from, selectedTo.base);
+			to = result.answer;
 		}
+	}
+
+	$: if (selectedTo) {
+		convert();
 	}
 </script>
 
@@ -39,7 +46,7 @@
 </h1>
 <form>
 	<section>
-		<label for="from"> From: </label>
+		<p>From:</p>
 		<select name="from" bind:value={selectedFrom} class="select select-bordered w-full max-w-xs">
 			{#each options as option}
 				<option value={option}> {option.name} </option>
@@ -54,7 +61,7 @@
 	</section>
 
 	<section>
-		<label for="to"> to: </label>
+		<p>to:</p>
 		<select name="to" bind:value={selectedTo} class="select select-bordered w-full max-w-xs">
 			{#each options as option}
 				<option value={option}> {option.name} </option>
@@ -75,6 +82,8 @@
 				{/if}
 			{:else if selectedFrom.base === 10}
 				<FromDecimalSteps {step} base={selectedTo.base} />
+			{:else if selectedFrom.base === 2}
+				<FromBinarySteps {step} base={selectedTo.base} />
 			{/if}
 		{/each}
 	{/if}

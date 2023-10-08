@@ -58,14 +58,54 @@ export function fromDecimal(input: string, base: number) {
 			getByValue(reminder) : reminder;
 		decimalNum = Math.floor(decimalNum / base);
 		step.whole = decimalNum;
-		console.log(step.reminder);
 		steps.push(step);
 
 	}
-	console.log({ steps });
 
 	return {
 		answer,
 		steps
 	}
+}
+
+export function fromBin(input: string, base: number = 8): { answer: string, steps: string[][] } {
+	const nonBin = ["2", "3", "4", "5", "6", "7", "8", "9"]
+	nonBin.forEach((num) => {
+		if (input.includes(num)) {
+			return { answer: input, steps: [] }
+		}
+	})
+	console.log(input.split(""))
+	const splittedInput = input.split("").reverse();
+	console.log({ splittedInput })
+	const chunkSize: number = base === 8 ? 3 : 4;
+	const steps: string[][] = [];
+
+	for (let i = 0; i < splittedInput.length; i += chunkSize) {
+		const chunk = splittedInput.slice(i, i + chunkSize);
+		steps.push(chunk);
+	}
+	console.log({ steps })
+	steps.reverse().forEach((chunk, index) => {
+		chunk.reverse()
+		if (chunk.length < chunkSize && index === 0) {
+			while (chunk.length < chunkSize) {
+				chunk.unshift("0");
+			}
+		} else if (chunk.length < chunkSize && index === steps.length - 1) {
+			while (chunk.length < chunkSize) {
+				chunk.push("0");
+			}
+		}
+	});
+
+	console.log({ steps })
+
+	let answer = parseInt(input, 2).toString(base).toUpperCase();
+
+	answer = answer === "NAN" ? "" : answer
+	return {
+		answer,
+		steps
+	};
 }
