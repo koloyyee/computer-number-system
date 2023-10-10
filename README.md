@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Computer Number System
 Our world works in base 10, that means 10 is the max and 0 is the lowest,
 however, the our computer see differently, because it only sees 0s and 1s, as a softare developer learn the how to convert from one number system to another is crucial.
@@ -31,6 +30,3 @@ pnpm install
 # or 
 npm install
 ```
-
-## Source
->>>>>>> b0d388e (feat: convert from binary to octal/hexa)
