@@ -1,12 +1,13 @@
 interface IStep {
 	power: number;
 	value: number;
-	element: string;
+	element?: string;
 }
 
 interface ISteps {
-	answer: number;
-	steps: IStep[];
+	answer: number | string;
+	steps: IStep[] | [];
 }
 
-export type { IStep, ISteps };
+type Base = 2 | 8 | 10 | 16;
+export type { Base, IStep, ISteps };

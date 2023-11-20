@@ -2,8 +2,8 @@
 	import FromBinarySteps from '$lib/components/conversion/FromBinarySteps.svelte';
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
-	import { fromBin, fromDecimal, toDecimal } from '../lib/utils/conversion';
 	import '../app.css';
+	import { fromBinary, fromDecimal, fromHex, fromOctal, toDecimal } from '../lib/utils/conversion';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
 	$: selectedTo = { name: '', base: 0 };
@@ -24,12 +24,24 @@
 		if (selectedTo.base === 10) {
 			result = toDecimal(from, selectedFrom.base);
 			to = result.answer;
+			return;
 		} else if (selectedFrom.base === 10) {
 			result = fromDecimal(from, selectedTo.base);
 			to = result.answer;
+			return;
 		} else if (selectedFrom.base === 2) {
-			result = fromBin(from, selectedTo.base);
+			result = fromBinary(from, selectedTo.base);
 			to = result.answer;
+			return;
+		} else if (selectedFrom.base === 8) {
+			result = fromOctal(from, selectedTo.base);
+			to = result.answer;
+			return;
+		} else if (selectedFrom.base === 16) {
+			result = fromHex(from, selectedTo.base);
+			console.log(result.steps);
+			to = result.answer;
+			return;
 		}
 	}
 
