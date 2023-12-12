@@ -183,3 +183,31 @@ export function fromHex(input: string, toBase = 8) {
 }
 
 // TODO: turn into builder pattern!
+
+// Octal to Hexadecimal conversion
+// 1. Convert octal to binary
+// 2. Convert binary to hexadecimal
+// export function octToHex(input: string, base: number = 8) {
+
+// }
+
+export function toBin(input: string, base: number = 8) {
+
+	const answer = parseInt(input, base).toString(2);
+
+	let inputNum = parseInt(input);
+	const steps: { input: number, remainder: number }[] = [];
+
+	while (inputNum !== 0) {
+		let remainder = inputNum % 2;
+		inputNum = Math.floor(inputNum / 2);
+		steps.push({ input: inputNum, remainder });
+	}
+
+	return {
+		answer,
+		steps
+
+	}
+}
+
