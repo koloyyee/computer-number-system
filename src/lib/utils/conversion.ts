@@ -8,13 +8,7 @@ hexMap.set('D', 13);
 hexMap.set('E', 14);
 hexMap.set('F', 15);
 
-function getByValue(target: number) {
-	for (const [key, value] of hexMap.entries()) {
-		if (value === target) {
-			return key;
-		}
-	}
-}
+
 
 export function toDecimal(input: string, fromBase: number) {
 	const answer = parseInt(input, fromBase);
@@ -48,7 +42,7 @@ export function fromDecimal(input: string, toBase: number) {
 		const step = {};
 		const reminder = decimalNum % toBase;
 		step.prev = decimalNum;
-		step.reminder = toBase === 16 && reminder >= 10 ? getByValue(reminder) : reminder;
+		step.reminder = toBase === 16 && reminder >= 10 ? hexMap.get(reminder) : reminder;
 		decimalNum = Math.floor(decimalNum / toBase);
 		step.whole = decimalNum;
 		steps.push(step);
