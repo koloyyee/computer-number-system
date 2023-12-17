@@ -1,12 +1,5 @@
 import type { Base, IStep } from '$lib/types/conversion.types';
-
-const hexMap = new Map();
-hexMap.set('A', 10);
-hexMap.set('B', 11);
-hexMap.set('C', 12);
-hexMap.set('D', 13);
-hexMap.set('E', 14);
-hexMap.set('F', 15);
+import { hexCharMap } from './value.maps';
 
 export function toDecimal(input: string, fromBase: number) {
 	const answer = parseInt(input, fromBase);
@@ -16,7 +9,7 @@ export function toDecimal(input: string, fromBase: number) {
 	const steps: IStep[] = [];
 
 	reversedBinArr.forEach((el, index) => {
-		const element = hexMap.has(el) ? hexMap.get(el) : parseInt(el);
+		const element = hexCharMap.has(el) ? hexCharMap.get(el) : parseInt(el);
 		const step: IStep = { power: 0, value: 0, element: '' };
 		step.power = index;
 		step.value = element * Math.pow(fromBase, index);
@@ -40,7 +33,7 @@ export function fromDecimal(input: string, toBase: number) {
 		const step = {};
 		const reminder = decimalNum % toBase;
 		step.prev = decimalNum;
-		step.reminder = toBase === 16 && reminder >= 10 ? hexMap.get(reminder) : reminder;
+		step.reminder = toBase === 16 && reminder >= 10 ? hexCharMap.get(reminder) : reminder;
 		decimalNum = Math.floor(decimalNum / toBase);
 		step.whole = decimalNum;
 		steps.push(step);
@@ -92,9 +85,9 @@ export function fromBinary(
 }
 export function toBinary(target: string, fromBase: Base = 8): number[] | [] {
 	let intTarget = 0;
-	if (hexMap.has(target.toUpperCase()) && fromBase !== 16) return [];
-	if (hexMap.has(target.toUpperCase())) {
-		intTarget = hexMap.get(target.toUpperCase());
+	if (hexCharMap.has(target.toUpperCase()) && fromBase !== 16) return [];
+	if (hexCharMap.has(target.toUpperCase())) {
+		intTarget = hexCharMap.get(target.toUpperCase());
 	} else {
 		intTarget = parseInt(target);
 	}
@@ -125,7 +118,6 @@ export function fromOctal(input: string, toBase: number = 2) {
 	}
 
 	const splittedInput = input.split('');
-	const steps: number[][] = [];
 	const answer = parseInt(input, 8).toString(toBase).toUpperCase();
 
 	if (toBase === 8) {
@@ -133,16 +125,31 @@ export function fromOctal(input: string, toBase: number = 2) {
 	}
 
 	if (toBase === 16) {
-		const result = fromBinary(parseInt(input, 8).toString(2), 16);
-		console.log({ result });
+		// step 1. octal to binary
+		const part1 = fromBinary(parseInt(input, 8).toString(2), 8).steps.map((step, i) => {
+			const element = splittedInput[i];
+			return { stepBase: 8, element, binary: step };
+		});
+
+		// step 2. binary to hex
+		const part2 = fromBinary(parseInt(input, 8).toString(2), 16).steps.map((step, i) => {
+			const element = answer.split('')[i];
+			return { stepBase: 16, element, binary: step };
+		});
+
+		const steps = [part1, part2];
 		return {
-			answer: result.answer,
-			steps: result.steps
+			answer,
+			steps
 		};
 	} else {
 		// to binary
-		splittedInput.forEach((element) => steps.push(toBinary(element, 8)));
-		console.log(answer, steps);
+		const oct2Bin2 = fromBinary(parseInt(input, 8).toString(2), 8);
+		const steps = oct2Bin2.steps.map((step, i) => {
+			const element = splittedInput[i];
+			return { element, binary: step };
+		});
+		console.log({ answer, steps });
 		return {
 			answer,
 			steps: steps
