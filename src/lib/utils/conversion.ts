@@ -8,8 +8,6 @@ hexMap.set('D', 13);
 hexMap.set('E', 14);
 hexMap.set('F', 15);
 
-
-
 export function toDecimal(input: string, fromBase: number) {
 	const answer = parseInt(input, fromBase);
 	if (isNaN(answer)) return { answer: input, steps: [] };
@@ -86,6 +84,7 @@ export function fromBinary(
 	let answer = parseInt(input, 2).toString(toBase).toUpperCase();
 	answer = answer === 'NaN' ? '' : answer;
 
+	console.log({ answer, steps });
 	return {
 		answer,
 		steps
@@ -143,6 +142,7 @@ export function fromOctal(input: string, toBase: number = 2) {
 	} else {
 		// to binary
 		splittedInput.forEach((element) => steps.push(toBinary(element, 8)));
+		console.log(answer, steps);
 		return {
 			answer,
 			steps: steps
@@ -186,11 +186,10 @@ export function fromHex(input: string, toBase = 8) {
 // }
 
 export function toBin(input: string, base: number = 8) {
-
 	const answer = parseInt(input, base).toString(2);
 
 	let inputNum = parseInt(input);
-	const steps: { input: number, remainder: number }[] = [];
+	const steps: { input: number; remainder: number }[] = [];
 
 	while (inputNum !== 0) {
 		let remainder = inputNum % 2;
@@ -201,7 +200,5 @@ export function toBin(input: string, base: number = 8) {
 	return {
 		answer,
 		steps
-
-	}
+	};
 }
-

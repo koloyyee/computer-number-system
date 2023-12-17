@@ -1,6 +1,6 @@
 ### TODOs
 
-[] - Binary <-> Octal: Binary to Octal steps - elements and values are missing
+[] - Octal to Binary Steps
 
 [] - Binary <-> Hexa
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FromBinarySteps from '$lib/components/conversion/FromBinarySteps.svelte';
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
+	import FromOctalSteps from '$lib/components/conversion/FromOctalSteps.svelte';
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
 	import '../app.css';
 	import { fromBinary, fromDecimal, fromHex, fromOctal, toDecimal } from '../lib/utils/conversion';
@@ -97,6 +98,8 @@
 				<FromDecimalSteps {step} base={selectedTo.base} />
 			{:else if selectedFrom.base === 2}
 				<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
+			{:else if selectedFrom.base === 8}
+				<FromOctalSteps {step} result={result.answer[index]} base={selectedTo.base} />
 			{/if}
 		{/each}
 	{/if}
