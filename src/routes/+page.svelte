@@ -1,10 +1,13 @@
 <script lang="ts">
 	import FromBinarySteps from '$lib/components/conversion/FromBinarySteps.svelte';
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
+	import FromHexSteps from '$lib/components/conversion/FromHexSteps.svelte';
 	import FromOctalSteps from '$lib/components/conversion/FromOctalSteps.svelte';
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
+	import { fromBinary, fromDecimal, fromHex, toDecimal } from '$lib/utils/conversion';
+	import { fromOctal } from '$lib/utils/conversion/octal';
+
 	import '../app.css';
-	import { fromBinary, fromDecimal, fromHex, fromOctal, toDecimal } from '../lib/utils/conversion';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
 	$: selectedTo = { name: '', base: 0 };
@@ -40,7 +43,6 @@
 			return;
 		} else if (selectedFrom.base === 16) {
 			result = fromHex(from, selectedTo.base);
-			console.log(result.steps);
 			to = result.answer;
 			return;
 		}
@@ -100,6 +102,8 @@
 				<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
 			{:else if selectedFrom.base === 8}
 				<FromOctalSteps {step} result={result.answer[index]} base={selectedTo.base} />
+			{:else if selectedFrom.base === 16}
+				<FromHexSteps {step} result={result.answer[index]} base={selectedTo.base} />
 			{/if}
 		{/each}
 	{/if}

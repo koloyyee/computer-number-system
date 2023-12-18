@@ -1,13 +1,13 @@
 <script lang="ts">
 	import FromBinarySteps from './FromBinarySteps.svelte';
 
-	type Oct2Hex = {
+	type Hex2Oct = {
 		stepBase: number;
 		element: string;
 		binary: string[][];
 	};
 
-	export let step: Oct2Hex[];
+	export let step: Hex2Oct[];
 	export let base: number;
 
 	export let result: string;
