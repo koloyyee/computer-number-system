@@ -1,3 +1,4 @@
+import { getAnswer } from '.';
 import { toBinary } from './binary';
 
 export function fromOctal(input: string, toBase: number = 2) {
@@ -7,7 +8,7 @@ export function fromOctal(input: string, toBase: number = 2) {
 	}
 
 	const splittedInput = input.split('');
-	const answer = parseInt(input, 8).toString(toBase).toUpperCase();
+	const answer = getAnswer(input, 8, toBase);
 
 	switch (toBase) {
 		case 16:

@@ -1,4 +1,5 @@
 import type { IStep } from '$lib/types/conversion.types';
+import { getAnswer } from '.';
 import { hexCharMap } from '../value.maps';
 
 export function toDecimal(input: string, fromBase: number) {
@@ -24,13 +25,15 @@ export function toDecimal(input: string, fromBase: number) {
 }
 
 export function fromDecimal(input: string, toBase: number) {
+	const answer = getAnswer(input, 10, toBase);
+
 	let decimalNum = parseInt(input);
-	const answer = decimalNum.toString(toBase).toUpperCase();
 
 	const steps = [];
+
 	while (true) {
 		if (decimalNum === 0 || isNaN(decimalNum)) break;
-		const step = {};
+		const step = { prev: 0, reminder: 0, whole: 0 };
 		const reminder = decimalNum % toBase;
 		step.prev = decimalNum;
 		step.reminder = toBase === 16 && reminder >= 10 ? hexCharMap.get(reminder) : reminder;

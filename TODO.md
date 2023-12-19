@@ -1,18 +1,17 @@
 ### TODOs
 
-[] - Octal to Binary Steps
+[] - UI
 
-[] - Binary <-> Hexa
-
-[] - Octal <-> Hexa
+- [] - color theme
+- [] - font
+- [] - responsive
+- [] - center the dive
+- [] - dark mode
 
 [] - Binary <-> Decimal with float
 
-## NOTE problem discovered
+[x] - Octal to Binary Steps
 
-1. Inconsistency: ALL steps need to have
-   1.
+[x] - Binary <-> Hexa
 
-```javascript
-
-```
+[x] - Octal <-> Hexa
