@@ -62,7 +62,7 @@ At the second stage, we will add the following:
 2. IEEE single precision number.
 3. Negative numbers.
 
-#### Technology stack:
+#### Technology stack
 
 1. SvelteKit
 2. TailwindCSS
@@ -80,6 +80,12 @@ to be added.
 Design Document:
 Created on 2023/12/12.
 Last update on 2023/12/12
+
+## TODOs
+
+[TODO](./TODO.md)
+
+## Contributing
 
 If you are interest playing with this project feel to `git clone` it and run
 
