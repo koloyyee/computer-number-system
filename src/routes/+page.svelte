@@ -51,7 +51,10 @@
 	}
 
 	$: if (selectedTo) {
-		convert();
+		console.log({ from, selectedFrom, to, selectedTo });
+		if (selectedFrom.name !== '' && selectedTo.name !== '') {
+			convert();
+		}
 	}
 </script>
 
