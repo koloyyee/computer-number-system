@@ -1,3 +1,5 @@
+import { getAnswer } from '.';
+
 function fromBinary(input: string, toBase: number = 8): { answer: string; steps: string[][] } {
 	const regex = /[a-zA-Z2-9]/;
 	if (regex.test(input)) {
@@ -24,8 +26,7 @@ function fromBinary(input: string, toBase: number = 8): { answer: string; steps:
 		}
 	});
 
-	let answer = parseInt(input, 2).toString(toBase).toUpperCase();
-	answer = answer === 'NaN' ? '' : answer;
+	const answer = getAnswer(input, 2, toBase);
 
 	return {
 		answer,

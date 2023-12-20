@@ -17,4 +17,10 @@ octMap.set(0, 4);
 octMap.set(1, 2);
 octMap.set(2, 1);
 
+const baseMap = new Map();
+baseMap.set(2, 'Binary');
+baseMap.set(8, 'Octal');
+baseMap.set(10, 'Decimal');
+baseMap.set(16, 'Hexadecimal');
+
 export { hexCharMap, hexMap, octMap };

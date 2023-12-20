@@ -3,6 +3,10 @@ import { getAnswer } from '.';
 import { hexCharMap } from '../value.maps';
 
 export function toDecimal(input: string, fromBase: number) {
+	// only 0 and 1 allowed for input
+	if (!/^[01]+$/.test(input) && fromBase === 2) {
+		return { answer: 'Only 0 or 1 allowed', steps: [] };
+	}
 	const answer = parseInt(input, fromBase);
 	if (isNaN(answer)) return { answer: input, steps: [] };
 

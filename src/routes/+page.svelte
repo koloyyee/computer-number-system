@@ -1,4 +1,6 @@
 <script lang="ts">
+	import CardWrapper from '$lib/components/CardWrapper.svelte';
+	import FromTo from '$lib/components/FromTo.svelte';
 	import FromBinarySteps from '$lib/components/conversion/FromBinarySteps.svelte';
 	import FromDecimalSteps from '$lib/components/conversion/FromDecimalSteps.svelte';
 	import FromHexSteps from '$lib/components/conversion/FromHexSteps.svelte';
@@ -53,61 +55,82 @@
 	}
 </script>
 
-<h1 class="text-4xl">
-	{#if selectedFrom.name === '' || selectedTo.name === ''}
-		Pick a base
-	{:else}
-		Convert from {selectedFrom.name} to {selectedTo.name}
-	{/if}
-</h1>
-<form>
-	<section>
-		<p>From:</p>
-		<select name="from" bind:value={selectedFrom} class="select select-bordered w-full max-w-xs">
-			{#each options as option}
-				<option value={option}> {option.name} </option>
-			{/each}
-		</select>
-		<input
-			type="text"
-			bind:value={from}
-			on:change={convert}
-			class="input input-bordered w-full max-w-xs"
-		/>
+<main class="flex flex-col justify-center items-center">
+	<h1 class="text-4xl w-max text-center">
+		{#if selectedFrom.name === '' || selectedTo.name === ''}
+			Pick a base
+		{:else}
+			Convert from {selectedFrom.name} to {selectedTo.name}
+		{/if}
+	</h1>
+	<section class="">
+		<div class="flex gap-5">
+			<div class="from flex flex-col w-36 lg:w-72">
+				<label for="from">From:</label>
+				<select name="from" bind:value={selectedFrom} class="select select-primary w-full max-w-xs">
+					{#each options as option}
+						<option value={option}> {option.name} </option>
+					{/each}
+				</select>
+			</div>
+			<div class="to flex flex-col w-36 lg:w-72">
+				<label for="to">To:</label>
+				<select name="to" bind:value={selectedTo} class="select select-secondary w-full max-w-xs">
+					{#each options as option}
+						<option value={option}> {option.name} </option>
+					{/each}
+				</select>
+			</div>
+		</div>
+		<div class="inputs flex gap-5">
+			<div class="target flex flex-col lg:w-72">
+				<label for="target"> Input: </label>
+				<input
+					name="target"
+					type="text"
+					bind:value={from}
+					on:change={convert}
+					class="input input-bordered w-full max-w-xs"
+				/>
+			</div>
+			<div class="answer flex flex-col lg:w-72">
+				<label for="answer">Answer:</label>
+				<input
+					disabled
+					name="answer"
+					type="text"
+					bind:value={to}
+					class="input input-bordered w-full max-w-xs"
+				/>
+			</div>
+		</div>
 	</section>
+	<section id="steps">
+		{#if result}
+			<CardWrapper fromBaseName={selectedFrom.name} toBaseName={selectedTo.name}>
+				<FromTo {from} {to} answer={result.answer} />
 
-	<section>
-		<p>to:</p>
-		<select name="to" bind:value={selectedTo} class="select select-bordered w-full max-w-xs">
-			{#each options as option}
-				<option value={option}> {option.name} </option>
-			{/each}
-		</select>
-		<input disabled type="text" bind:value={to} class="input input-bordered w-full max-w-xs" />
+				{#each result.steps as step, index}
+					{#if selectedTo.base === 10}
+						<ToDecimalSteps {step} base={selectedFrom.base} />
+						{#if index !== result.steps.length - 1}
+							<p>+</p>
+						{/if}
+					{:else if selectedFrom.base === 10}
+						<FromDecimalSteps {step} {result} base={selectedTo.base} />
+					{:else if selectedFrom.base === 2}
+						<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
+					{:else if selectedFrom.base === 8}
+						<FromOctalSteps {step} result={result.answer[index]} base={selectedTo.base} />
+					{:else if selectedFrom.base === 16}
+						<FromHexSteps {step} result={result.answer[index]} base={selectedTo.base} />
+					{/if}
+				{/each}
+				<FromTo {from} {to} answer={result.answer} />
+			</CardWrapper>
+		{/if}
 	</section>
-</form>
-<section id="steps">
-	{#if result}
-		{#each result.steps as step, index}
-			{#if selectedTo.base === 10}
-				<ToDecimalSteps {step} base={selectedFrom.base} />
-				{#if index !== result.steps.length - 1}
-					<p>+</p>
-				{:else}
-					<p>= {result.answer}</p>
-				{/if}
-			{:else if selectedFrom.base === 10}
-				<FromDecimalSteps {step} base={selectedTo.base} />
-			{:else if selectedFrom.base === 2}
-				<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
-			{:else if selectedFrom.base === 8}
-				<FromOctalSteps {step} result={result.answer[index]} base={selectedTo.base} />
-			{:else if selectedFrom.base === 16}
-				<FromHexSteps {step} result={result.answer[index]} base={selectedTo.base} />
-			{/if}
-		{/each}
-	{/if}
-</section>
+</main>
 
 <style lang="postcss">
 </style>
