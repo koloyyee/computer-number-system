@@ -1,4 +1,5 @@
 import { getAnswer } from '.';
+import { BASE } from '../value.maps';
 
 function fromBinary(input: string, toBase: number = 8): { answer: string; steps: string[][] } {
 	const regex = /[a-zA-Z2-9]/;
@@ -6,7 +7,7 @@ function fromBinary(input: string, toBase: number = 8): { answer: string; steps:
 		return { answer: "Can't contain 2-9 or a-z", steps: [] };
 	}
 	const splittedInput = input.split('').reverse();
-	const chunkSize: number = toBase === 8 ? 3 : 4;
+	const chunkSize: number = toBase === BASE.OCTAL ? 3 : 4;
 	const steps: string[][] = [];
 
 	for (let i = 0; i < splittedInput.length; i += chunkSize) {
@@ -26,7 +27,7 @@ function fromBinary(input: string, toBase: number = 8): { answer: string; steps:
 		}
 	});
 
-	const answer = getAnswer(input, 2, toBase);
+	const answer = getAnswer(input, BASE.BINARY, toBase);
 
 	return {
 		answer,
@@ -40,8 +41,7 @@ function toBinary(
 	fromBase: number,
 	toBase: number
 ) {
-	const base2 = 2;
-	const steps = fromBinary(parseInt(input, fromBase).toString(base2), toBase).steps.map(
+	const steps = fromBinary(parseInt(input, fromBase).toString(BASE.BINARY), toBase).steps.map(
 		(step, i) => {
 			const element = splittedInput[i];
 			return { stepBase: toBase, element, binary: step };

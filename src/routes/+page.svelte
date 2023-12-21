@@ -8,6 +8,7 @@
 	import ToDecimalSteps from '$lib/components/conversion/ToDecimalSteps.svelte';
 	import { fromBinary, fromDecimal, fromHex, toDecimal } from '$lib/utils/conversion';
 	import { fromOctal } from '$lib/utils/conversion/octal';
+	import { BASE } from '$lib/utils/value.maps';
 
 	import '../app.css';
 
@@ -17,7 +18,7 @@
 	let from = '';
 	let to = '';
 
-	let result;
+	let result: any;
 
 	const options = [
 		{ name: 'Binary', base: 2 },
@@ -27,23 +28,23 @@
 	];
 
 	function convert() {
-		if (selectedTo.base === 10) {
+		if (selectedTo.base === BASE.DECIMAL) {
 			result = toDecimal(from, selectedFrom.base);
 			to = result.answer;
 			return;
-		} else if (selectedFrom.base === 10) {
+		} else if (selectedFrom.base === BASE.DECIMAL) {
 			result = fromDecimal(from, selectedTo.base);
 			to = result.answer;
 			return;
-		} else if (selectedFrom.base === 2) {
+		} else if (selectedFrom.base === BASE.BINARY) {
 			result = fromBinary(from, selectedTo.base);
 			to = result.answer;
 			return;
-		} else if (selectedFrom.base === 8) {
+		} else if (selectedFrom.base === BASE.OCTAL) {
 			result = fromOctal(from, selectedTo.base);
 			to = result.answer;
 			return;
-		} else if (selectedFrom.base === 16) {
+		} else if (selectedFrom.base === BASE.HEXADECIMAL) {
 			result = fromHex(from, selectedTo.base);
 			to = result.answer;
 			return;

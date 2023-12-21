@@ -23,4 +23,11 @@ baseMap.set(8, 'Octal');
 baseMap.set(10, 'Decimal');
 baseMap.set(16, 'Hexadecimal');
 
-export { hexCharMap, hexMap, octMap };
+const BASE = {
+	BINARY: 2,
+	OCTAL: 8,
+	DECIMAL: 10,
+	HEXADECIMAL: 16
+} as const;
+
+export { BASE, hexCharMap, hexMap, octMap };

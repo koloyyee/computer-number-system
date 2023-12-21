@@ -1,4 +1,5 @@
 import { getAnswer } from '.';
+import { BASE } from '../value.maps';
 import { toBinary } from './binary';
 
 export function fromOctal(input: string, toBase: number = 2) {
@@ -9,15 +10,15 @@ export function fromOctal(input: string, toBase: number = 2) {
 	// let answer = parseInt(input, 8).toString(toBase).toUpperCase();
 	// answer = answer.toLowerCase() === 'nan' ? '' : answer;
 
-	const answer = getAnswer(input, 8, toBase);
+	const answer = getAnswer(input, BASE.OCTAL, toBase);
 
 	const splittedInput = input.split('');
 
 	switch (toBase) {
 		case 16:
-			return octHex(input, splittedInput, answer, 8, 16);
+			return octHex(input, splittedInput, answer, BASE.OCTAL, BASE.HEXADECIMAL);
 		case 2:
-			return toBinary(input, splittedInput, answer, 8, 8);
+			return toBinary(input, splittedInput, answer, BASE.OCTAL, BASE.OCTAL);
 		default:
 			return { answer: input, steps: [] };
 	}

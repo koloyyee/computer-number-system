@@ -1,9 +1,8 @@
 import type { IStep } from '$lib/types/conversion.types';
 import { getAnswer } from '.';
-import { hexCharMap } from '../value.maps';
+import { BASE, hexCharMap } from '../value.maps';
 
 export function toDecimal(input: string, fromBase: number) {
-	// only 0 and 1 allowed for input
 	if (!/^[01]+$/.test(input) && fromBase === 2) {
 		return { answer: 'Only 0 or 1 allowed', steps: [] };
 	}
@@ -29,12 +28,13 @@ export function toDecimal(input: string, fromBase: number) {
 }
 
 export function fromDecimal(input: string, toBase: number) {
-	const answer = getAnswer(input, 10, toBase);
+	const answer = getAnswer(input, BASE.DECIMAL, toBase);
 
 	let decimalNum = parseInt(input);
 
 	const steps = [];
 
+	// eslint-disable-next-line no-constant-condition
 	while (true) {
 		if (decimalNum === 0 || isNaN(decimalNum)) break;
 		const step = { prev: 0, reminder: 0, whole: 0 };
