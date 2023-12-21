@@ -2,13 +2,16 @@ import { getAnswer } from '.';
 import { toBinary } from './binary';
 
 export function fromOctal(input: string, toBase: number = 2) {
-	const regex = /[a-zA-Z89]/;
-	if (regex.test(input) && input) {
+	const regex = /[a-zA-Z89\s]/;
+	if (regex.test(input) || !input) {
 		return { answer: "Can't contain a-z or 8 and above", steps: [] };
 	}
+	// let answer = parseInt(input, 8).toString(toBase).toUpperCase();
+	// answer = answer.toLowerCase() === 'nan' ? '' : answer;
+
+	const answer = getAnswer(input, 8, toBase);
 
 	const splittedInput = input.split('');
-	const answer = getAnswer(input, 8, toBase);
 
 	switch (toBase) {
 		case 16:

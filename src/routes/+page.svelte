@@ -51,10 +51,7 @@
 	}
 
 	$: if (selectedTo) {
-		console.log({ from, selectedFrom, to, selectedTo });
-		if (selectedFrom.name !== '' && selectedTo.name !== '') {
-			convert();
-		}
+		convert();
 	}
 </script>
 
@@ -69,7 +66,7 @@
 	<section class="">
 		<div class="flex gap-5">
 			<div class="from flex flex-col w-36 lg:w-72">
-				<label for="from">From:</label>
+				<p>From:</p>
 				<select name="from" bind:value={selectedFrom} class="select select-primary w-full max-w-xs">
 					{#each options as option}
 						<option value={option}> {option.name} </option>
@@ -77,7 +74,7 @@
 				</select>
 			</div>
 			<div class="to flex flex-col w-36 lg:w-72">
-				<label for="to">To:</label>
+				<p>To:</p>
 				<select name="to" bind:value={selectedTo} class="select select-secondary w-full max-w-xs">
 					{#each options as option}
 						<option value={option}> {option.name} </option>
@@ -87,7 +84,7 @@
 		</div>
 		<div class="inputs flex gap-5">
 			<div class="target flex flex-col lg:w-72">
-				<label for="target"> Input: </label>
+				<p>Input:</p>
 				<input
 					name="target"
 					type="text"
@@ -97,7 +94,7 @@
 				/>
 			</div>
 			<div class="answer flex flex-col lg:w-72">
-				<label for="answer">Answer:</label>
+				<p>Answer:</p>
 				<input
 					disabled
 					name="answer"
