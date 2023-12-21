@@ -5,7 +5,6 @@ import { octHex } from './octal';
 export function fromHex(input: string, toBase = 8) {
 	const regex = /[g-zG-Z\s]/;
 	if (regex.test(input)) {
-		console.error('Letter can only be between A-F');
 		return { answer: 'Letter can only be between A-F', steps: [] };
 	}
 
