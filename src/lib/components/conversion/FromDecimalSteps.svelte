@@ -4,4 +4,4 @@
 	export let result: number;
 </script>
 
-<p>{step.prev} / {base} = {step.whole} R <span class="text-red-400">{step.reminder}</span></p>
+<p>{step.prev} / {base} = {step.whole} R <span class="text-red-400">{step.remainder}</span></p>

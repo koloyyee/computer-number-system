@@ -37,10 +37,15 @@ export function fromDecimal(input: string, toBase: number) {
 	// eslint-disable-next-line no-constant-condition
 	while (true) {
 		if (decimalNum === 0 || isNaN(decimalNum)) break;
-		const step = { prev: 0, reminder: 0, whole: 0 };
-		const reminder = decimalNum % toBase;
+		const step = {
+			prev: 0,
+			remainder: 0,
+			whole: 0
+		};
+		const remainder = decimalNum % toBase;
 		step.prev = decimalNum;
-		step.reminder = toBase === 16 && reminder >= 10 ? hexCharMap.get(reminder) : reminder;
+		step.remainder = remainder;
+
 		decimalNum = Math.floor(decimalNum / toBase);
 		step.whole = decimalNum;
 		steps.push(step);

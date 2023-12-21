@@ -1,19 +1,21 @@
 <script lang="ts">
-	import { hexMap, octMap } from '$lib/utils/value.maps';
+	import { BASE, hexMap, octMap } from '$lib/utils/value.maps';
 
-	export let step: string;
+	export let step: string | string[][];
 	export let base: number;
 
 	export let result: string;
 
-	$: baseMap = base == 8 ? octMap : hexMap;
+	$: baseMap = base == BASE.OCTAL ? octMap : hexMap;
 </script>
 
 <section class="flex justify-evenly w-96">
 	<div class="binary-arr">
-		{#if base === 8}
+		<p>Base: {base}</p>
+
+		{#if base === BASE.OCTAL}
 			[ 4 , 2 , 1 ]
-		{:else if base === 16}
+		{:else if base === BASE.HEXADECIMAL}
 			[ 8 , 4 , 2 , 1 ]
 		{/if}
 		<p class="pb-2 mt-0">

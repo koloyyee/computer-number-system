@@ -16,6 +16,12 @@
 
 [] - include to decimal to binary, octal, and hexadecimal
 
+### Bugs
+
+[] - Decimal to Hexadecimal shows undefined for A-F
+
+### Completed
+
 [x] - Octal to Binary Steps
 
 [x] - Binary <-> Hexa
