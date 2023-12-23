@@ -13,7 +13,7 @@
 	import '../app.css';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
-	$: selectedTo = { name: '', base: 0 };
+	let selectedTo = { name: '', base: 0 };
 
 	let from = '';
 	let to = '';
@@ -51,7 +51,7 @@
 		}
 	}
 
-	$: if (selectedTo) {
+	$: if (selectedFrom || selectedTo) {
 		convert();
 	}
 </script>
@@ -105,25 +105,27 @@
 				/>
 			</div>
 		</div>
+		<!-- <button class="button" on:click={convert}>Convert</button> -->
 	</section>
+
 	<section id="steps">
 		{#if result}
 			<CardWrapper fromBaseName={selectedFrom.name} toBaseName={selectedTo.name}>
 				<FromTo {from} {to} answer={result.answer} />
 
 				{#each result.steps as step, index}
-					{#if selectedTo.base === 10}
+					{#if selectedTo.base === BASE.DECIMAL}
 						<ToDecimalSteps {step} base={selectedFrom.base} />
 						{#if index !== result.steps.length - 1}
 							<p>+</p>
 						{/if}
-					{:else if selectedFrom.base === 10}
+					{:else if selectedFrom.base === BASE.DECIMAL}
 						<FromDecimalSteps {step} {result} base={selectedTo.base} />
-					{:else if selectedFrom.base === 2}
+					{:else if selectedFrom.base === BASE.BINARY}
 						<FromBinarySteps {step} result={result.answer[index]} base={selectedTo.base} />
-					{:else if selectedFrom.base === 8}
+					{:else if selectedFrom.base === BASE.OCTAL}
 						<FromOctalSteps {step} result={result.answer[index]} base={selectedTo.base} />
-					{:else if selectedFrom.base === 16}
+					{:else if selectedFrom.base === BASE.HEXADECIMAL}
 						<FromHexSteps {step} result={result.answer[index]} base={selectedTo.base} />
 					{/if}
 				{/each}

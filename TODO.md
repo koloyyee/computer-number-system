@@ -18,7 +18,8 @@
 
 ### Bugs
 
-[] - Decimal to Hexadecimal shows undefined for A-F
+[] - Decimal to Hexadecimal shows undefined for A-F.
+[] - Base change from decimal to binary causes error.
 
 ### Completed
 

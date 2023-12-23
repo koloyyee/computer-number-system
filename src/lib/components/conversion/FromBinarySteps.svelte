@@ -6,6 +6,8 @@
 
 	export let result: string;
 
+	console.log({ step, base, result });
+
 	$: baseMap = base == BASE.OCTAL ? octMap : hexMap;
 </script>
 

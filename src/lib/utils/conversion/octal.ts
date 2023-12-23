@@ -7,8 +7,6 @@ export function fromOctal(input: string, toBase: number = 2) {
 	if (regex.test(input) || !input) {
 		return { answer: "Can't contain a-z or 8 and above", steps: [] };
 	}
-	// let answer = parseInt(input, 8).toString(toBase).toUpperCase();
-	// answer = answer.toLowerCase() === 'nan' ? '' : answer;
 
 	const answer = getAnswer(input, BASE.OCTAL, toBase);
 
