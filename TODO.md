@@ -2,11 +2,11 @@
 
 [] - UI
 
-- [] - color theme
-- [] - font
-- [] - responsive
-- [] - center the dive
-- [] - dark mode
+- [x] - color theme
+- [x] - font
+- [x] - responsive
+- [x] - center the dive
+- [x] - dark mode
 
 [] - Binary <-> Decimal with float
 
@@ -18,8 +18,9 @@
 
 ### Bugs
 
-[] - Decimal to Hexadecimal shows undefined for A-F.
-[] - Base change from decimal to binary causes error.
+[] - Octal to Decimal will allow 9;
+[x] - Decimal to Hexadecimal shows undefined for A-F.
+[x] - Base change from decimal to binary causes error.
 
 ### Completed
 

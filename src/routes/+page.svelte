@@ -13,7 +13,7 @@
 	import '../app.css';
 
 	let selectedFrom: { name: string; base: number } = { name: '', base: 0 };
-	let selectedTo = { name: '', base: 0 };
+	let selectedTo = { name: 'Binary', base: 2 };
 
 	let from = '';
 	let to = '';
@@ -70,7 +70,7 @@
 				<p>From:</p>
 				<select name="from" bind:value={selectedFrom} class="select select-primary w-full max-w-xs">
 					{#each options as option}
-						<option value={option}> {option.name} </option>
+						<option value={option} selected> {option.name}</option>
 					{/each}
 				</select>
 			</div>
@@ -105,7 +105,7 @@
 				/>
 			</div>
 		</div>
-		<!-- <button class="button" on:click={convert}>Convert</button> -->
+		<button class="my-2 btn btn-primary" on:click={convert}>Convert</button>
 	</section>
 
 	<section id="steps">
